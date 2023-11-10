@@ -1,0 +1,29 @@
+version: "3"
+services:
+  front:
+    image: frontend
+    container_name: frontreact
+    ports:
+      - "3000:80"
+    depends_on:
+      - back
+  back:
+    image: backspring
+    container_name: backspring
+    environment:
+      - MYSQL_HOST=mysqlbd
+    ports:
+      - "3352:3352"
+    depends_on:
+      - mysqlbd
+  mysqlbd:
+    container_name: mysqlbd
+    image: bdlearnpath
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+    volumes:
+      - data:/var/lib/mysql
+volumes:
+  data:
